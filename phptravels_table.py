@@ -28,7 +28,7 @@ print("VISIBLE number of rows displayed=", len(visible_row_list))         # this
 
 row_elements = []   # iterating through each row
 row_elements = driver.find_elements_by_xpath('//*[@id="myTable"]/tr[not(contains(@style,"display: none;"))]/td')
-# row_elements has 35
+# row_elements has 35 elements
 
 # printing only first 5 and adding a print line to mark row number
 for i in range(len(row_elements)):
