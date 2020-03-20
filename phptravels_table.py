@@ -1,6 +1,7 @@
 """This tests table
 Illustrates how to
-count number of rows (visible / total) and columns """
+count number of rows (visible / total) and columns
+using visible filter """
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys     # needed to send key
@@ -26,13 +27,15 @@ print("TOTAL number of rows displayed=", len(total_row_list))         # this is 
 print("VISIBLE number of rows displayed=", len(visible_row_list))         # this is the rows displayed / visible
 
 row_elements = []   # iterating through each row
-for i in range(len(visible_row_list)):
-    for rows in driver.find_elements_by_xpath('//*[@id="myTable"]/tr["+str(i)+"]/td[1]'):
-        print("Rows:")
-        for j in range(len(column_list)):
-            for row_element in driver.find_elements_by_xpath('//*[@id="myTable"]/tr["+str(i)+"]/td["+str(j)+"]'):
-                print("row data =",row_element.text)
-# not sure why keeps printing "row data" after row 5 but not before
+row_elements = driver.find_elements_by_xpath('//*[@id="myTable"]/tr[not(contains(@style,"display: none;"))]/td')
+# row_elements has 35
+
+# printing only first 5 and adding a print line to mark row number
+for i in range(len(row_elements)):
+    if i % 7 == 0:          # calculate the row number and print a heading, the list contains all 13 * 7 elements
+        n = int(i/7 +1)
+        print("Row:", n)
+    print(row_elements[i].text)
 
 
 driver.close()
